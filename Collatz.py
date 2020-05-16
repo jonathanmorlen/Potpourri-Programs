@@ -6,6 +6,7 @@ high = 0
 time_start = time.time()
 
 
+# https://en.wikipedia.org/wiki/Collatz_conjecture
 def Collatz(num):
     counter = 0
     while num != 1:
@@ -18,7 +19,6 @@ def Collatz(num):
 
 
 # test numbers 1 to n for the longest progression of the Collatz sequence
-# https://en.wikipedia.org/wiki/Collatz_conjecture
 n = 10000
 number = 0
 for i in range(1, n):
