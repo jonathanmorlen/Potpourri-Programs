@@ -142,9 +142,8 @@ def solveMaze(maze_string, start, end):
         raise ValueError("Out of bounds x coordinate for end (x, y)")
     if not (0 <= end[1] <= len(maze_string)):
         raise ValueError("Out of bounds y coordinate for end (x, y)")
-
-    # create maze of nodes instead of 1's and 0's
-    maze = Maze(maze_string)
+    
+    maze = Maze(maze_string)    # create maze of nodes instead of 1's and 0's
     start = maze.nodes[start[1]][start[0]]
     end = maze.nodes[end[1]][end[0]]
 
@@ -164,7 +163,7 @@ def solveMaze(maze_string, start, end):
 
 
 if __name__ == '__main__':
-    # construct new maze here, travel from top left to bottom right
+    # construct new maze here
     # 1's are unable to be traveled, 0's are able to be traveled
     maze_map1 = [[0, 1, 1, 0],
                  [0, 0, 0, 1],
