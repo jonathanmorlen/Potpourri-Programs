@@ -24,7 +24,7 @@ def aStar(maze, start, end):
         # generate set of surrounding nodes reachable with legal moves
         surroundingNodes = maze.getSurroundingNodes(currentNode)
         for node in surroundingNodes:
-            if node in closedSet or openSet:
+            if node in closedSet or node in openSet:
                 continue
 
             node.parent = currentNode
@@ -60,8 +60,6 @@ class Maze:
         if (x < 0) or (x >= self.width):
             return None
         if (y < 0) or (y >= self.height):
-            return None
-        if self.nodes[y][x].value == 1:
             return None
         return self.nodes[y][x]
 
