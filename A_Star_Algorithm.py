@@ -26,7 +26,8 @@ def aStar(maze, start, end):
         for node in surroundingNodes:
             if node in closedSet or node in openSet:
                 continue
-
+            if node.value == 1:
+                continue
             node.parent = currentNode
             node.distanceFromStart = currentNode.distanceFromStart + 1
             node.distanceFromEnd = ((node.x - end.x) ** 2) + ((node.y - end.y) ** 2)
