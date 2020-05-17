@@ -8,6 +8,8 @@ Random programs that aren't a full project, similar to programming exercises
 
 - **Collatz**: Finds the longest progression of the [Collatz Sequence](https://en.wikipedia.org/wiki/Collatz_conjecture) of integers 1 to n. Prints the starting number of the longest progression, the sequence length, and the time it took to compute.
 
+- **Meepo_BlinkPoof**: Script for a combo in the game [DoTa 2](https://en.wikipedia.org/wiki/Dota_2) with the hero Meepo. Once running, uses the hotkeys 'F1' - 'F5' to set the number of Meepo clones from 1 - 5. When in game uses the hotkey '5' to tab through the appropriate number of clones and cast the ability "poof" at the location of the cursor, ending with a tab to the original meepo and a cast of "blink dagger" with the spacebar. I have never and will never use this in a game with human players, this was just a proof of concept.
+
 - **makeChange**: Given an amount of change 1 to 99 cents, computes the minimum number of coins needed to make that amount of change out of standard US coins (quarter, dime, nickel, penny). Prints the number of coins needed to make the amount of change.
 
 - **orthogonal_projection**: 
