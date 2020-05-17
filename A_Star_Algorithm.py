@@ -1,16 +1,14 @@
-import functools
-
-
 def aStar(maze, start, end):
     # initialize A*
     openSet = set()
     closedSet = set()
-
     start.cost = 0
     openSet.add(start)
+
+    # perform search
     while openSet:
         # visit node
-        currentNode = min(openSet)
+        currentNode = min(openSet, key=lambda x: x.cost)
         openSet.remove(currentNode)
         closedSet.add(currentNode)
 
@@ -26,16 +24,19 @@ def aStar(maze, start, end):
         # generate set of surrounding nodes reachable with legal moves
         surroundingNodes = maze.getSurroundingNodes(currentNode)
         for node in surroundingNodes:
-            if node in closedSet:
+            if node in closedSet or openSet:
                 continue
-            if node in openSet:
-                continue
+
             node.parent = currentNode
+            node.distanceFromStart = currentNode.distanceFromStart + 1
+            node.distanceFromEnd = ((node.x - end.x) ** 2) + ((node.y - end.y) ** 2)
+            node.cost = node.distanceFromStart + node.distanceFromEnd
+
             openSet.add(node)
 
 
 class Maze:
-    def __init__(self, maze_string):
+    def __init__(self, maze_string, start, end):
         self.width = len(maze_string[0])
         self.height = len(maze_string)
         self.nodes = []
@@ -46,19 +47,21 @@ class Maze:
                 # create node
                 node = Node(x, y)
                 node.value = maze_string[y][x]
-                node.distanceFromEnd = ((self.width - x - 1) ** 2) + ((self.height - y - 1) ** 2)
-                node.distanceFromStart = (node.x ** 2) + (node.y ** 2)
-                node.cost = node.distanceFromStart + node.distanceFromEnd
+                node.distanceFromEnd = 0
+                node.distanceFromStart = 0
+                node.cost = 0
 
                 # rebuild maze as 2D list of nodes
                 nodeRow.append(node)
             self.nodes.append(nodeRow)
 
     def getNode(self, x, y):
-        # check if accessing out of bounds node
+        # check if accessing nonexistent node
         if (x < 0) or (x >= self.width):
             return None
         if (y < 0) or (y >= self.height):
+            return None
+        if self.nodes[y][x].value == 1:
             return None
         return self.nodes[y][x]
 
@@ -76,25 +79,19 @@ class Maze:
         # if any nodes accessed are nonexistent, remove them
         if None in surrounding:
             surrounding.remove(None)
-
-        # ensure nodes are passable
-        surrounding = {node if node.value == 0 else None for node in surrounding}
-        if None in surrounding:
-            surrounding.remove(None)
         return surrounding
 
     # for debugging and printing
     def __str__(self):
-        maze_string = ""
+        maze = ""
         for y in range(self.height):
             row = ""
             for x in range(self.width):
                 row = row + str(self.nodes[y][x]) + " "
-            maze_string = maze_string + row + '\n'
-        return maze_string
+            maze = maze + row + '\n'
+        return maze
 
 
-@functools.total_ordering
 class Node:
     def __init__(self, x, y):
         # coordinates of node in maze
@@ -104,7 +101,10 @@ class Node:
         # whether node is a 1 or 0
         self.value = None
 
-        # "cost" of node
+        # if a wall has been removed to reach this node
+        self.removed = False
+
+        # cost of node
         self.distanceFromStart = 0
         self.distanceFromEnd = 0
         self.cost = 0
@@ -120,13 +120,9 @@ class Node:
     def __repr__(self):
         return str((self.x, self.y))
 
-    # for usage in sets as well as rich comparison
+    # for usage in sets
     def __eq__(self, other):
         return (self.x == other.x) and (self.y == other.y)
-
-    # for usage in rich comparison
-    def __lt__(self, other):
-        return self.cost < other.cost
 
     # for usage in sets
     def __hash__(self):
@@ -142,8 +138,9 @@ def solveMaze(maze_string, start, end):
         raise ValueError("Out of bounds x coordinate for end (x, y)")
     if not (0 <= end[1] <= len(maze_string)):
         raise ValueError("Out of bounds y coordinate for end (x, y)")
-    
-    maze = Maze(maze_string)    # create maze of nodes instead of 1's and 0's
+
+    # create maze of nodes instead of 1's and 0's
+    maze = Maze(maze_string)
     start = maze.nodes[start[1]][start[0]]
     end = maze.nodes[end[1]][end[0]]
 
@@ -163,7 +160,7 @@ def solveMaze(maze_string, start, end):
 
 
 if __name__ == '__main__':
-    # construct new maze here
+    # construct new maze here, travel from top left to bottom right
     # 1's are unable to be traveled, 0's are able to be traveled
     maze_map1 = [[0, 1, 1, 0],
                  [0, 0, 0, 1],
