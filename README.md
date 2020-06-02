@@ -12,5 +12,7 @@ Random programs that aren't a full project, similar to programming exercises
 
 - **makeChange**: Given an amount of change 1 to 99 cents, computes the minimum number of coins needed to make that amount of change out of standard US coins (quarter, dime, nickel, penny). Prints the number of coins needed to make the amount of change.
 
-- **orthogonal_projection**: 
-Takes a vector and a subspace as input, computes the [orthogonal projection](https://en.wikipedia.org/wiki/Projection_(linear_algebra)) of the vector onto the subspace using orthogonal projection. Prints the projection vector.
+- **orthogonal_projection**: Takes a vector and a subspace as input, computes the [orthogonal projection](https://en.wikipedia.org/wiki/Projection_(linear_algebra)) of the vector onto the subspace using orthogonal projection. Prints the projection vector.
+
+- **backup.py**: Command line interface *daily* backup script with the format: `python.exe backup.py <source> <destination>` where `<source>` is the folder to be zipped and `<destination>` is the final location of the compressed file. Names the zip file after the current date (XX-XX-XXXX.zip) and will overwrite previous versions in the same day. Created with the intention to use with batch files for automatic backing up of data.
+
