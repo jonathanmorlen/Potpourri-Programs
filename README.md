@@ -14,5 +14,5 @@ Random programs that aren't a full project, similar to programming exercises
 
 - **orthogonal_projection**: Takes a vector and a subspace as input, computes the [orthogonal projection](https://en.wikipedia.org/wiki/Projection_(linear_algebra)) of the vector onto the subspace using orthogonal projection. Prints the projection vector.
 
-- **backup.py**: Command line interface *daily* backup script with the format: `python.exe backup.py <source> <destination>` where `<source>` is the folder to be zipped and `<destination>` is the final location of the compressed file. Names the zip file after the current date (XX-XX-XXXX.zip). Created with the intention to use with batch files for automatic backing up of data.
+- **backup.py**: Command line interface *daily* backup script with the format: `python.exe backup.py <source> <destination>` where `<source>` is the folder to be zipped and `<destination>` is the final location of the compressed file. Names the zip file after the current date (XX-XX-XXXX.zip). Created with the intention to use with batch files for automatic backing up of projects.
 
